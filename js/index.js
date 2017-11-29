@@ -83,10 +83,12 @@ function game(){
         graphics.line(ctx, i+gridX, gridY, i+gridX, gridY+gridSize, 5);
         graphics.line(ctx, gridX, gridY+i, gridX+gridSize, gridY+i, 5);
     }
-    for(let i=cellSize;i<cellSize*4;i+=cellSize){
-        graphics.line(ctx, topX, topY+i, topX+cellSize*2, topY+i, 5);
+    for(let i=cellSize;i<cellSize*8;i+=cellSize){
+        graphics.line(ctx, topX, topY+i, topX+cellSize*4, topY+i, 5);
     }
-    graphics.line(ctx, topX+cellSize, topY, topX+cellSize, topY+cellSize*3, 5);
+    for(let i=cellSize;i<cellSize*4;i+=cellSize){
+        graphics.line(ctx, topX+i, topY, topX+i, topY+cellSize*6, 5);
+    }
 
     // Logic
     if(!currentBlock){
