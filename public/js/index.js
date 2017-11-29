@@ -17,6 +17,7 @@ let score = 0;
 
 var currentBlock;
 var fallenBlocks = [];
+var fallenPieces = [];
 
 var down = false;
 
@@ -26,6 +27,27 @@ function calculateDT(){
     const delta = (now - prevDt)/1000;
     prevDt = now;
     return delta;
+}
+
+function stopBlock(){
+    fallenPieces = fallenPieces.concat(currentBlock.getPieces());
+    
+    fallenBlocks.push(currentBlock);
+    currentBlock = undefined;
+}
+
+function checkMove(){
+    const pieces = currentBlock.getPieces();
+    for(let i=0;i<pieces.length;i++){
+        for(let j=0;j<fallenPieces.length;j++){
+            if(pieces[i][0] === fallenPieces[j][0] && pieces[i][1] === fallenPieces[j][1]){
+                // hit another block.
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 function menu () {
@@ -101,13 +123,21 @@ function game(){
     while(count>0.5){
         count-=0.5;
 
-        //Move currentBlock down
-        currentBlock.y += cellSize;
-        
-        if(currentBlock.getBottom()>gridY+gridSize){
-            currentBlock.y = gridY+gridSize-cellSize*(currentBlock.boolMap.length);
-            fallenBlocks.push(currentBlock);
-            currentBlock = undefined;
+        if(currentBlock){
+            //Move currentBlock down
+            currentBlock.y += cellSize;
+            
+            if(currentBlock.getBottom()>gridY+gridSize){
+                currentBlock.y = gridY+gridSize-cellSize*(currentBlock.boolMap.length);
+
+                stopBlock();
+            }else {
+                if(checkMove()){
+                    currentBlock.y -= cellSize;
+
+                    stopBlock();
+                }
+            }
         }
     }
 
@@ -146,6 +176,11 @@ window.addEventListener("keydown",(e)=>{
         if(started){
             if(currentBlock){
                 currentBlock.x -= cellSize;
+                if(checkMove()){
+                    currentBlock.x += cellSize;
+
+                    stopBlock();
+                }
             }
         }
         break;
@@ -154,6 +189,12 @@ window.addEventListener("keydown",(e)=>{
         if(started){
             if(currentBlock){
                 currentBlock.x += cellSize;
+
+                if(checkMove()){
+                    currentBlock.x -= cellSize;
+                    
+                    stopBlock();
+                }
             }
         }
         break;
