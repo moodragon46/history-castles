@@ -18,6 +18,8 @@ let score = 0;
 var currentBlock;
 var fallenBlocks = [];
 
+var down = false;
+
 var prevDt = Date.now();
 function calculateDT(){
     const now = Date.now();
@@ -54,7 +56,7 @@ function menu () {
 
 function game(){
     const dt = calculateDT();
-    count += dt;
+    count += dt*(4*down+1);// Accelerates when down key is held
     graphics.rect(ctx,0,0,c.width,c.height);
 
     // Draw frame
@@ -139,5 +141,34 @@ window.addEventListener("keydown",(e)=>{
         //Space
         started = true;
         break;
+    case 37:
+        //Left
+        if(started){
+            if(currentBlock){
+                currentBlock.x -= cellSize;
+            }
+        }
+        break;
+    case 39:
+        //Right
+        if(started){
+            if(currentBlock){
+                currentBlock.x += cellSize;
+            }
+        }
+        break;
+    case 40:
+        //Down
+        if(started){
+            down = true;
+        }
+    }
+});
+
+window.addEventListener("keyup",(e)=>{
+    const w = e.which || e.keyCode;
+
+    if(w===40){
+        down = false;
     }
 });
