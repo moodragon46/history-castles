@@ -1,0 +1,15 @@
+[debug] [2017-11-29T05:22:28.421Z] ----------------------------------------------------------------------
+[debug] [2017-11-29T05:22:28.421Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\danie\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] [2017-11-29T05:22:28.421Z] CLI Version:   3.15.3
+[debug] [2017-11-29T05:22:28.421Z] Platform:      win32
+[debug] [2017-11-29T05:22:28.421Z] Node Version:  v7.9.0
+[debug] [2017-11-29T05:22:28.436Z] Time:          Wed Nov 29 2017 16:22:28 GMT+1100 (AUS Eastern Daylight Time)
+[debug] [2017-11-29T05:22:28.436Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-11-29T05:22:28.488Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-11-29T05:22:28.494Z] > authorizing via signed-in user
+[debug] [2017-11-29T05:22:28.524Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/history-castles  
+ Wed Nov 29 2017 16:22:28 GMT+1100 (AUS Eastern Daylight Time)
+[debug] [2017-11-29T05:22:29.596Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-29T05:22:29.596Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/history-castles/tokens  
+ Wed Nov 29 2017 16:22:29 GMT+1100 (AUS Eastern Daylight Time)
