@@ -132,6 +132,8 @@ function game(){
     if(!currentBlock){
         currentBlock = new (random.choice(blocks))(topX,topY);
         currentBlock.x = topX + cellSize * (2-Math.floor(currentBlock.width/2));
+
+        score += currentBlock.getPieces().length;
     }
 
     while(count>0.5){
