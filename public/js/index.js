@@ -45,6 +45,20 @@ function checkMove(){
                 return true;
             }
         }
+
+        if(pieces[i][1] < gridY){
+            // In top section
+            if(pieces[i][0] < topX || pieces[i][0] > topX + cellSize * 3){
+                return 0.5;
+            }
+        }else {
+            if(pieces[i][0] < gridX || pieces[i][0] >= gridX+gridSize){
+                return 0.5;
+            }
+            if(pieces[i][1] >= gridY+gridSize){
+                return true;
+            }
+        }
     }
 
     return false;
@@ -127,16 +141,10 @@ function game(){
             //Move currentBlock down
             currentBlock.y += cellSize;
             
-            if(currentBlock.getBottom()>gridY+gridSize){
-                currentBlock.y = gridY+gridSize-cellSize*(currentBlock.boolMap.length);
+            if(checkMove()){
+                currentBlock.y -= cellSize;
 
                 stopBlock();
-            }else {
-                if(checkMove()){
-                    currentBlock.y -= cellSize;
-
-                    stopBlock();
-                }
             }
         }
     }
@@ -176,10 +184,15 @@ window.addEventListener("keydown",(e)=>{
         if(started){
             if(currentBlock){
                 currentBlock.x -= cellSize;
-                if(checkMove()){
+
+                const result = checkMove();
+                if(result){
                     currentBlock.x += cellSize;
 
-                    stopBlock();
+                    if(result > 0.7){
+                        // It didn't just hit the side
+                        stopBlock();
+                    }
                 }
             }
         }
@@ -190,10 +203,14 @@ window.addEventListener("keydown",(e)=>{
             if(currentBlock){
                 currentBlock.x += cellSize;
 
-                if(checkMove()){
+                const result = checkMove();
+                if(result){
                     currentBlock.x -= cellSize;
                     
-                    stopBlock();
+                    if(result>0.7){
+                        // It didn't just hit the side
+                        stopBlock();
+                    }
                 }
             }
         }
