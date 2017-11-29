@@ -13,3 +13,16 @@
 [debug] [2017-11-29T05:22:29.596Z] <<< HTTP RESPONSE 200
 [debug] [2017-11-29T05:22:29.596Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/history-castles/tokens  
  Wed Nov 29 2017 16:22:29 GMT+1100 (AUS Eastern Daylight Time)
+[debug] [2017-11-29T05:22:30.462Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Users\danie\Documents\Coding\HTML\historyCastles'...
+[info] 
+[debug] [2017-11-29T05:22:30.478Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/history-castles  
+ Wed Nov 29 2017 16:22:30 GMT+1100 (AUS Eastern Daylight Time)
+[debug] [2017-11-29T05:22:31.952Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-29T05:22:31.952Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1043517065175/clients/_:getWebAppConfig  
+ Wed Nov 29 2017 16:22:31 GMT+1100 (AUS Eastern Daylight Time)
+[debug] [2017-11-29T05:22:32.910Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
+
