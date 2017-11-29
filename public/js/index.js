@@ -93,6 +93,7 @@ function game(){
     // Logic
     if(!currentBlock){
         currentBlock = new (random.choice(blocks))(topX,topY);
+        currentBlock.x = topX + cellSize * (2-Math.floor(currentBlock.width/2));
     }
 
     while(count>0.5){
@@ -100,17 +101,20 @@ function game(){
 
         //Move currentBlock down
         currentBlock.y += cellSize;
+        
+        if(currentBlock.getBottom()>gridY+gridSize){
+            currentBlock.y = gridY+gridSize-cellSize*(currentBlock.boolMap.length);
+            fallenBlocks.push(currentBlock);
+            currentBlock = undefined;
+        }
     }
 
     for(let i=0;i<fallenBlocks.length;i++){
         fallenBlocks[i].render(ctx);
     }
 
-    currentBlock.render(ctx);
-
-    if(currentBlock.getBottom()>=gridY+gridSize){
-        fallenBlocks.push(currentBlock);
-        currentBlock = undefined;
+    if(currentBlock){
+        currentBlock.render(ctx);
     }
 
     requestAnimationFrame(game);

@@ -15,6 +15,14 @@ class Block {
         this.y = y;
         this.boolMap = boolMap;
         this.col = random.choice(colours);
+
+        this.width = boolMap.length;
+        this.height = 0;
+        for(let i=0;i<this.width;i++){
+            if(boolMap[i].length>this.height){
+                this.height = boolMap[i].length;
+            }
+        }
     }
 
     render(ctx){
