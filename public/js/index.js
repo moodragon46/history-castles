@@ -12,6 +12,7 @@ const images = {castle:undefined};
 
 var count = 0;
 var started = false;
+var gameOver = false;
 
 let score = 0;
 
@@ -133,7 +134,11 @@ function game(){
         currentBlock = new (random.choice(blocks))(topX,topY);
         currentBlock.x = topX + cellSize * (2-Math.floor(currentBlock.width/2));
 
-        score += currentBlock.getPieces().length;
+        if(checkMove()){
+            gameOver = true;
+        }else {
+            score += currentBlock.getPieces().length;
+        }
     }
 
     while(count>0.5){
@@ -159,7 +164,21 @@ function game(){
         currentBlock.render(ctx);
     }
 
-    requestAnimationFrame(game);
+    if(gameOver){
+        requestAnimationFrame(gameOverLoop);
+    }else {
+        requestAnimationFrame(game);
+    }
+}
+
+function gameOverLoop(){
+    const dt = calculateDT();
+
+    graphics.rect(ctx,0,0,c.width,c.height);
+
+    graphics.text(ctx,`Game Over. Score: ${score}`,100,500,150);
+
+    requestAnimationFrame(gameOverLoop);
 }
 
 window.onload = () => {
