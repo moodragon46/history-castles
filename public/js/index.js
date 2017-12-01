@@ -245,7 +245,18 @@ window.addEventListener("keydown",(e)=>{
         //Up
         if(started){
             if(currentBlock){
+                const old = currentBlock.boolMap.concat([]);// Duplicates boolMap
+
                 currentBlock.boolMap = rotateList(currentBlock.boolMap);
+
+                const result = checkMove();
+                if(result){
+                    currentBlock.boolMap = old;
+                    if(result > 0.7){
+                        // We hit something
+                        stopBlock();
+                    }
+                }
             }
         }
         break;
