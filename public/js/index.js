@@ -1,5 +1,6 @@
 const graphics = require("./graphics");
 const random = require("./random");
+const rotateList = require("./rotateList");
 const blocks = require("./blocks");
 
 const gridX=660;const gridY=450;const gridSize=600;
@@ -241,6 +242,15 @@ window.addEventListener("keydown",(e)=>{
         if(started){
             down = true;
         }
+        break;
+    case 38:
+        //Up
+        if(started){
+            if(currentBlock){
+                currentBlock.boolMap = rotateList(currentBlock.boolMap);
+            }
+        }
+        break;
     }
 });
 
