@@ -1,6 +1,6 @@
 const graphics = require("./graphics");
 const random = require("./random");
-
+const rotateList = require("./rotateList");
 
 const colours = [
     "#f00",
@@ -68,39 +68,26 @@ function mapListToBlocks (mapList){
     return blocks;
 }
 
-module.exports = mapListToBlocks([
+const blockListRaw = [
     [
         [1],
         [1,1]
     ],
     [
-        [1,1],
-        [1]
-    ],
-    [
-        [0,1],
-        [1,1]
-    ],
-    [
-        [1,1],
-        [0,1]
-    ],
-    [
-        [1,1,1],
-        [1]
-    ],
-    [
-        [1,1,1],
-        [0,0,1]
-    ],
-    [
-        [1,1],
         [1],
-        [1]
-    ],
-    [
-        [1,1],
-        [0,1],
-        [0,1]
+        [1],
+        [1,1]
     ]
-]);
+];
+const blockList = [];
+for(let i=0;i<blockListRaw.length;i++){
+    blockList.push(blockListRaw[i]);
+    const next = rotateList(blockList[i]);
+    blockList.push(next);
+    const andNext = rotateList(next);
+    blockList.push(andNext);
+    const final = rotateList(andNext);
+    blockList.push(final);
+}
+
+module.exports = mapListToBlocks(blockList);
