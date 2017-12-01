@@ -30,10 +30,42 @@ function calculateDT(){
     return delta;
 }
 
+function rowCheck(){
+    const rows = [];
+
+    //Organises indexes into rows
+    for(let i=0;i<fallenPieces.length;i++){
+        const y = fallenPieces[i][1];
+
+        const rowId = Math.floor((y-topY)/cellSize);
+
+        if(!rows[rowId]){// Creates row if not already made
+            rows[rowId] = [];
+        }
+
+        rows[rowId].push(fallenPieces[i]);
+    }
+
+    for(let j=0;j<rows.length;j++){
+        if(rows[j]){// If a piece was actually in this row
+            const amntInRow = rows[j].length;
+
+            // 12 is the amount for a break.
+            if(amntInRow>11){
+                for(let k=0;k<amntInRow;k++){
+                    fallenPieces.splice(fallenPieces.indexOf(rows[j][k]),1);//Removes all pieces in finished row
+                }
+            }
+        }
+    }
+}
+
 function stopBlock(){
     fallenPieces = fallenPieces.concat(currentBlock.getPieces());
     
     currentBlock = undefined;
+
+    rowCheck();
 }
 
 function checkMove(){
