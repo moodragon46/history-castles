@@ -47,7 +47,7 @@ class Block {
         for(let y=0;y<this.boolMap.length;y++){
             for(let x=0;x<this.boolMap[y].length;x++){
                 if(this.boolMap[y][x]){
-                    pieces.push([this.x+x*50,this.y+y*50]);
+                    pieces.push([this.x+x*50,this.y+y*50,this.col]);
                 }
             }
         }

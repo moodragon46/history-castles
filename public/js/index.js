@@ -18,7 +18,6 @@ var gameOver = false;
 let score = 0;
 
 var currentBlock;
-var fallenBlocks = [];
 var fallenPieces = [];
 
 var down = false;
@@ -34,7 +33,6 @@ function calculateDT(){
 function stopBlock(){
     fallenPieces = fallenPieces.concat(currentBlock.getPieces());
     
-    fallenBlocks.push(currentBlock);
     currentBlock = undefined;
 }
 
@@ -157,8 +155,8 @@ function game(){
         }
     }
 
-    for(let i=0;i<fallenBlocks.length;i++){
-        fallenBlocks[i].render(ctx);
+    for(let i=0;i<fallenPieces.length;i++){
+        graphics.renderBlock(ctx,fallenPieces[i][0],fallenPieces[i][1],fallenPieces[i][2]);
     }
 
     if(currentBlock){
