@@ -52,8 +52,18 @@ function rowCheck(){
 
             // 12 is the amount for a break.
             if(amntInRow>11){
+                const rowRemoveY = fallenPieces[fallenPieces.indexOf(rows[j][0])][1];
+
                 for(let k=0;k<amntInRow;k++){
                     fallenPieces.splice(fallenPieces.indexOf(rows[j][k]),1);//Removes all pieces in finished row
+                }
+
+                // Moves all above pieces down
+                for(let counter=0;counter<fallenPieces.length;counter++){
+                    if(fallenPieces[counter][1] < rowRemoveY){
+                        // Move this piece down
+                        fallenPieces[counter][1] += cellSize;
+                    }
                 }
             }
         }
