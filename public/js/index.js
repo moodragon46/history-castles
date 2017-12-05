@@ -2,6 +2,7 @@ const graphics = require("./graphics");
 const random = require("./random");
 const rotateList = require("./rotateList");
 const blocks = require("./blocks");
+const music = require("./music");
 
 const gridX=660;const gridY=450;const gridSize=600;
 const cellSize = 50;
@@ -231,6 +232,9 @@ window.onload = () => {
 
     images.castle = new Image();
     images.castle.onload = () => {
+        // Starts music
+        music.start();
+
         requestAnimationFrame(menu);
     }
     images.castle.src = "./images/plan.jpg";
