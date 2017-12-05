@@ -20,6 +20,7 @@ let score = 0;
 var currentBlock;
 var fallenPieces = [];
 
+var speedUp = 1;
 var down = false;
 
 var prevDt = Date.now();
@@ -74,6 +75,8 @@ function stopBlock(){
     fallenPieces = fallenPieces.concat(currentBlock.getPieces());
     
     currentBlock = undefined;
+
+    speedUp += 0.01;
 
     rowCheck();
 }
@@ -134,7 +137,7 @@ function menu () {
 
 function game(){
     const dt = calculateDT();
-    count += dt*(4*down+1);// Accelerates when down key is held
+    count += dt*(4*down+1)*speedUp;// Accelerates when down key is held
     graphics.rect(ctx,0,0,c.width,c.height);
 
     // Draw frame
