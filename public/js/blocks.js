@@ -18,11 +18,11 @@ class Block {
         this.boolMap = boolMap;
         this.col = random.choice(colours);
 
-        this.width = boolMap.length;
-        this.height = 0;
-        for(let i=0;i<this.width;i++){
-            if(boolMap[i].length>this.height){
-                this.height = boolMap[i].length;
+        this.height = boolMap.length;
+        this.width = 0;
+        for(let i=0;i<this.height;i++){
+            if(boolMap[i].length>this.width){
+                this.width = boolMap[i].length;
             }
         }
     }
@@ -89,7 +89,9 @@ const blockListRaw = [
         [1,1]
     ],
     [
-        [1,1,1]
+        [1],
+        [1],
+        [1]
     ],
     [
         [1],
