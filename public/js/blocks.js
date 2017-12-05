@@ -77,12 +77,30 @@ const blockListRaw = [
         [1],
         [1],
         [1,1]
+    ],
+    [
+        [0,1],
+        [0,1],
+        [1,1]
+    ],
+    [
+        [1,1],
+        [1],
+        [1,1]
+    ],
+    [
+        [1,1,1]
+    ],
+    [
+        [1],
+        [1,1],
+        [0,1,1]
     ]
 ];
 const blockList = [];
 for(let i=0;i<blockListRaw.length;i++){
     blockList.push(blockListRaw[i]);
-    const next = rotateList(blockList[i]);
+    const next = rotateList(blockListRaw[i]);
     blockList.push(next);
     const andNext = rotateList(next);
     blockList.push(andNext);
