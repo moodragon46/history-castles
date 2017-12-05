@@ -3,6 +3,7 @@ const random = require("./random");
 const rotateList = require("./rotateList");
 const blocks = require("./blocks");
 const music = require("./music");
+const quiz = require("./jasonsOne");
 
 const gridX=660;const gridY=450;const gridSize=600;
 const cellSize = 50;
@@ -23,6 +24,8 @@ var fallenPieces = [];
 
 var speedUp = 1;
 var down = false;
+
+var finalScreen = false;
 
 var prevDt = Date.now();
 function calculateDT(){
@@ -210,7 +213,14 @@ function game(){
     }
 
     if(gameOver){
-        requestAnimationFrame(gameOverLoop);
+        //requestAnimationFrame(gameOverLoop);
+        quiz.init((additionPoints)=>{
+            score+=additionPoints;
+
+            finalScreen = true;
+
+            gameOverLoop();
+        });
     }else {
         requestAnimationFrame(game);
     }
@@ -222,6 +232,7 @@ function gameOverLoop(){
     graphics.rect(ctx,0,0,c.width,c.height);
 
     graphics.text(ctx,`Game Over. Score: ${score}`,100,500,150);
+    graphics.text(ctx,"Press space bar to retry",100,700,100);
 
     requestAnimationFrame(gameOverLoop);
 }
@@ -243,72 +254,78 @@ window.onload = () => {
 window.addEventListener("keydown",(e)=>{
     const w = e.which || e.keyCode;
     
-    switch(w){
-    case 32:
-        //Space
-        started = true;
-        break;
-    case 37:
-        //Left
-        if(started){
-            if(currentBlock){
-                currentBlock.x -= cellSize;
+    if(finalScreen){
+        if(w===32){
+            location.reload();
+        }
+    }else {
+        switch(w){
+        case 32:
+            //Space
+            started = true;
+            break;
+        case 37:
+            //Left
+            if(started){
+                if(currentBlock){
+                    currentBlock.x -= cellSize;
 
-                const result = checkMove();
-                if(result){
+                    const result = checkMove();
+                    if(result){
+                        currentBlock.x += cellSize;
+
+                        if(result > 0.7){
+                            // It didn't just hit the side
+                            stopBlock();
+                        }
+                    }
+                }
+            }
+            break;
+        case 39:
+            //Right
+            if(started){
+                if(currentBlock){
                     currentBlock.x += cellSize;
 
-                    if(result > 0.7){
-                        // It didn't just hit the side
-                        stopBlock();
+                    const result = checkMove();
+                    if(result){
+                        currentBlock.x -= cellSize;
+                        
+                        if(result>0.7){
+                            // It didn't just hit the side
+                            stopBlock();
+                        }
                     }
                 }
             }
-        }
-        break;
-    case 39:
-        //Right
-        if(started){
-            if(currentBlock){
-                currentBlock.x += cellSize;
+            break;
+        case 40:
+            //Down
+            if(started){
+                down = true;
+            }
+            break;
+        case 38:
+            //Up
+            if(started){
+                if(currentBlock){
+                    const old = currentBlock.boolMap.concat([]);// Duplicates boolMap
 
-                const result = checkMove();
-                if(result){
-                    currentBlock.x -= cellSize;
-                    
-                    if(result>0.7){
-                        // It didn't just hit the side
-                        stopBlock();
+                    currentBlock.boolMap = rotateList(currentBlock.boolMap);
+
+                    const result = checkMove();
+                    if(result){
+                        currentBlock.boolMap = old;
+                        if(result > 0.7){
+                            // We hit something
+                            stopBlock();
+                        }
                     }
                 }
             }
+            break;
         }
-        break;
-    case 40:
-        //Down
-        if(started){
-            down = true;
-        }
-        break;
-    case 38:
-        //Up
-        if(started){
-            if(currentBlock){
-                const old = currentBlock.boolMap.concat([]);// Duplicates boolMap
-
-                currentBlock.boolMap = rotateList(currentBlock.boolMap);
-
-                const result = checkMove();
-                if(result){
-                    currentBlock.boolMap = old;
-                    if(result > 0.7){
-                        // We hit something
-                        stopBlock();
-                    }
-                }
-            }
-        }
-        break;
     }
 });
 
