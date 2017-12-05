@@ -76,7 +76,7 @@ function stopBlock(){
     
     currentBlock = undefined;
 
-    speedUp += 0.01;
+    speedUp += 0.1;
 
     rowCheck();
 }
